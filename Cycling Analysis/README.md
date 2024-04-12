@@ -21,6 +21,6 @@ The files are as follows:
 
 cyclist_data_23T2.csv - This file contains the cyclist data for the 2023 T2 Redback Operations project. This inclused data for multiple workouts but there are some issues with some fields such as the duration fields whicg have invalid data.
 
-A thourough description of the data and the issues with this file is located at https://redback-operations.atlassian.net/wiki/spaces/RO/pages/18087940/Cycling+Data+Description.
+A thourough description of the data and the issues with this file is located at https://redback-operations.github.io/redback-documentation/docs/project-3/research/cycling-data-description.
 
 The process for downloading a dump of Strava files for an account is found at https://support.strava.com/hc/en-us/articles/216918437-Exporting-your-Data-and-Bulk-Export. A video that explains more options on exporting Sta=rava files individually or in bulk is available at https://www.youtube.com/watch?v=IbWMFikIGLo.
