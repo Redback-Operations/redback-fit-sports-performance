@@ -117,7 +117,7 @@ class PaceCurveAnalyzer:
         """
 
         filtered_durations = []
-        filtered_pacess = []
+        filtered_paces = []
 
         for duration, pace in pace_curve:
             if pace > 0:
