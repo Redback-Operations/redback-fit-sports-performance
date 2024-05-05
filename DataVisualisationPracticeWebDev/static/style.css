@@ -1,0 +1,54 @@
+/* Style.css or within a <style> tag in the head of your HTML files */
+body {
+    background-color: #0B0E10; /* Dark background for the body */
+    color: #ffffff; /* Light color for text for contrast */
+    font-family: 'Arial', sans-serif; /* Modern, readable font */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #FF3465; /* Accent color for headings */
+}
+
+.navbar, .footer {
+    background-color: #1E1E1E; /* Dark color for navigation and footer */
+    padding: 1em 0;
+}
+
+.navbar a, .footer a {
+    color: #ffffff; /* White text for links */
+    text-decoration: none; /* No underline for links */
+    padding: 0.5em;
+    display: inline-block; /* Align items in line */
+}
+
+.navbar a:hover, .footer a:hover, button:hover {
+    background-color: #FF3465; /* Highlight color for hover states */
+    border-radius: 5px; /* Rounded corners for interactive elements */
+}
+
+button {
+    background-color: #FF3465; /* Accent color for buttons */
+    color: #ffffff; /* Contrast color for button text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-transform: uppercase; /* Uppercase text for buttons */
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #E03173; /* Lighter shade for button hover effect */
+}
+
+/* Add responsive design elements for different screen sizes */
+@media (max-width: 768px) {
+    /* Adjustments for mobile views */
+    .navbar, .footer {
+        text-align: center;
+    }
+
+    .navbar a, .footer a {
+        display: block; /* Stack links vertically on small screens */
+        margin: 0.5em 0; /* Space out links */
+    }
+}
