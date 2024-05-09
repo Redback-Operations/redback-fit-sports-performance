@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Curve Display</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Power Curve from {{ start_date }} to {{ end_date }}</h1>
+    </header>
+    <main>
+        <div style="text-align: center;">
+            <img src="{{ url_for('static', filename=image_path) }}" alt="Power Curve"
+                style="max-width: 100%; height: auto;">
+        </div>
+    </main>
+    <footer>
+        <p>Dashboard by Singh</p>
+    </footer>
+</body>
+
+</html>
