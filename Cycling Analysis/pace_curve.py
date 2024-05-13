@@ -26,6 +26,7 @@ class PaceCurveAnalyzer:
             self.data_source = pd.read_csv('data/extended_activities_TRI001.csv')
 
         self.durations = [5, 10, 30, 60, 5*60, 10*60, 20*60, 30*60, 60*60, 90*60, 120*60]
+        self.activity_type = ''
         self.pace_fields = ['Maximum Pace 5s', 
                             'Maximum Pace 10s', 
                             'Maximum Pace 30s', 
@@ -74,6 +75,7 @@ class PaceCurveAnalyzer:
 
         # Read the data from the file
         data = self.data_source
+        self.activity_type = activity_type
 
         # Convert date to datetime
         end_date = pd.to_datetime(date)
@@ -87,6 +89,12 @@ class PaceCurveAnalyzer:
                                    (data['Activity Date'] >= start_date) & 
                                    (data['Activity Date'] <= end_date)]
 
+        # Filter out any activities where the swimming speed is greater than 2 m/s
+        # This is going to be an issue with GPS signal or multisport watches
+        # confusing different activitiy types
+        if activity_type == 'Swim':
+            filtered_activities = filtered_activities[filtered_activities['Maximum Pace 5s'] < 2]
+
         pace_curve = []
         for duration in self.durations:
             # Create a column name based on duration
@@ -98,19 +106,19 @@ class PaceCurveAnalyzer:
                 max_pace = filtered_activities[col_name].max()
                 pace_curve.append((duration, max_pace))
             else:
-                # Handle cases where the column does not exist (e.g., append a default value or skip)
+                # Handle cases where the column does not exist
                 pace_curve.append((duration, None))  
 
         return pace_curve
 
 
-    def plot_pace_curve(self, pace_curve, tested_cp):
+    def plot_pace_curve(self, pace_curve, critical_speed):
         """
         Plots the pace curve.
 
         Args:
             pace_curve (list): A list of pairs of duration and maximum pace values.
-            tested_cp (float): The tested Critical Power.
+            critical_speed (float): The tested Critical Speed for the athlete.
 
         Returns:
             None
@@ -138,11 +146,11 @@ class PaceCurveAnalyzer:
         plt.figure(figsize=(10, 6))
         plt.plot(numeric_durations, filtered_paces, color='lightgrey', label='Original', marker='.')
         plt.plot(numeric_durations, smooth_paces, color='blue', label='Smoothed', marker='.')
-        plt.axhline(y=tested_cp, color='g', linestyle='--', label='Tested CP')
+        plt.axhline(y=critical_speed, color='g', linestyle='--', label='Critical Speed')
         plt.xticks(numeric_durations, filtered_durations)
         plt.xlabel('Duration')
         plt.ylabel('Pace (m/s)')
-        plt.title('Pace Curve')
+        plt.title(self.activity_type +' Pace Curve')
         plt.legend()
         plt.show()
 
