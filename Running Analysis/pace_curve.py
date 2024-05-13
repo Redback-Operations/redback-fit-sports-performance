@@ -72,6 +72,63 @@ class PaceCurveAnalyzer:
 
         return pace_curve.values.tolist()
 
+    def add_pace_curve_column(self, activity_type, num_days):
+        """
+        Adds a column to the data source that computes the pace curve for each activity date.
+
+        Args:
+            activity_type (str): The type of activity to filter.
+            num_days (int): The number of days to include in the date range.
+
+        Returns:
+            pandas.DataFrame: The modified DataFrame containing the original columns plus 'Pace Curve'.
+        """
+        def compute_pace_curve_for_date(row):
+            """Helper function to compute the pace curve based on the date of the given row."""
+            date = row['Activity Date']
+            return self.create_pace_curve(activity_type, date, num_days)
+
+        # Ensure 'Activity Date' is in datetime format
+        self.data_source['Activity Date'] = pd.to_datetime(self.data_source['Activity Date'])
+
+        # Apply the helper function to each row and store results in a new column
+        self.data_source['Pace Curve'] = self.data_source.apply(compute_pace_curve_for_date, axis=1)
+
+        return self.data_source
+    
+    def expand_pace_curve_to_columns(self):
+        """
+        Expands the 'Pace Curve' nested lists into separate rows and columns.
+        """
+        # Ensure that 'Pace Curve' exists
+        if 'Pace Curve' not in self.data_source.columns:
+            raise KeyError("Pace Curve column not found. Please run the add_pace_curve_column function first.")
+
+        # Explode the lists into separate rows
+        exploded_df = self.data_source.explode('Pace Curve')
+
+        # Convert each pair in 'Pace Curve' to separate columns 'Distance' and 'Pace'
+        exploded_df[['Distance', 'Pace']] = pd.DataFrame(exploded_df['Pace Curve'].tolist(), index=exploded_df.index)
+
+        # Drop the original 'Pace Curve' column now that pairs are separated
+        exploded_df = exploded_df.drop(columns=['Pace Curve'])
+
+        # Pivot the data to get separate columns for each distance bucket
+        final_df = exploded_df.pivot_table(index=exploded_df.index,
+                                        columns='Distance',
+                                        values='Pace',
+                                        aggfunc='first')
+
+        # Rename columns to reflect the distance units (e.g., 'Pace 15 km')
+        final_df.columns = [f'Pace {col} km' for col in final_df.columns]
+
+        # Combine the expanded columns with original data, excluding duplicates
+        final_df = pd.concat([self.data_source, final_df], axis=1)
+
+        # Reset index if needed to tidy up the DataFrame
+        final_df.reset_index(drop=True, inplace=True)
+
+        return final_df
 
     def plot_pace_curve(self, pace_curve):
         """
