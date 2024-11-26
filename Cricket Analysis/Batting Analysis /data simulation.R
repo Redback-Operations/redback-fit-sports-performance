@@ -9,7 +9,7 @@ cor_matrix <- matrix(c(
 ), nrow = 4, ncol = 4)
 
 # Means and standard deviations for the features
-means <- c(120, 350, 30, 30) 
+means <- c(120, 480, 30, 30) 
 sds <- c(20, 50, 5, 10)    
 
 # Making 500 observations
@@ -25,7 +25,7 @@ batting_data <- data.frame(
 
 # Keeping feature within realistic ranges
 batting_data$Heart_Rate <- pmax(pmin(batting_data$Heart_Rate, 180), 70)
-batting_data$Reaction_Time <- pmax(pmin(batting_data$Reaction_Time, 600), 200)
+batting_data$Reaction_Time <- pmax(pmin(batting_data$Reaction_Time, 700), 400)
 batting_data$Swing_Speed <- pmax(pmin(batting_data$Swing_Speed, 40), 20)
 batting_data$Grip_Pressure <- pmax(pmin(batting_data$Grip_Pressure, 50), 10)
 
