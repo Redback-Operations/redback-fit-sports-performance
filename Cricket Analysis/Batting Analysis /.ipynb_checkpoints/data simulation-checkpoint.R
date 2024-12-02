@@ -1,6 +1,7 @@
 
 library(MASS)
 
+#Correlation Matrix
 cor_matrix <- matrix(c(
   1,  0.5, -0.3, -0.4,  # Heart Rate
   0.5,  1, -0.4, -0.5,  # Reaction Time
