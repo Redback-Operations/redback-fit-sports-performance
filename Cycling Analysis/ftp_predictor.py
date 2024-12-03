@@ -41,7 +41,17 @@ class FtpPredictor:
         data = data.drop(['Activity Date'], axis=1)
         data = data.fillna(0)
 
-        X = data.drop('FTP', axis=1)  # Features
+        # Specify power curve columns
+        power_curve_columns = [
+            '60 Day Maximum Power 5s', '60 Day Maximum Power 10s',
+            '60 Day Maximum Power 30s', '60 Day Maximum Power 1.0min',
+            '60 Day Maximum Power 5.0min', '60 Day Maximum Power 10.0min',
+            '60 Day Maximum Power 20.0min', '60 Day Maximum Power 30.0min',
+            '60 Day Maximum Power 1.0 hr', '60 Day Maximum Power 1.5 hr',
+            '60 Day Maximum Power 2.0 hr'
+        ]
+
+        X = data[power_curve_columns]  # Features
         y = data['FTP']               # Target variable
 
         # Split the data into training and testing sets
