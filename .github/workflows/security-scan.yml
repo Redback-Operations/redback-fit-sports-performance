@@ -1,6 +1,6 @@
 name: Security Scan
 
-on:
+on: #new
   pull_request_target:
     types: [opened, synchronize, reopened]
     branches: [main]
