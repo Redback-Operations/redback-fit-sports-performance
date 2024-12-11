@@ -49,4 +49,4 @@ def display_power_curve():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
