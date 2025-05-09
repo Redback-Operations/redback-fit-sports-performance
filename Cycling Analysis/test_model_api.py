@@ -11,7 +11,7 @@ def call_swim_duration_api(distance, paces):
     }
     
     # Sending a POST request to the Flask API
-    response = requests.post(url, json=payload, verify=False)
+    response = requests.post(url, json=payload)
     
     # Checking the response from the server
     if response.status_code == 200:
