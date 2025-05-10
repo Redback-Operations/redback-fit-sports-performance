@@ -118,7 +118,7 @@ class ProcessData:
     # Write functions
     @staticmethod
     def write_json(filename, content):
-        path = f"data/processed/{filename}"
+        path = f"../data/processed/{filename}"
         os.makedirs(os.path.dirname(path), exist_ok=True)
 
         with open(path, 'w') as file:

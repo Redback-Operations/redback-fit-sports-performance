@@ -4,7 +4,7 @@ from ProcessData import ProcessData
 
 if __name__ == "__main__":
     # Path to the parent directory containing the folders (data)
-    base_path = "data"
+    base_path = os.path.join("..", "data")
     base_path = os.path.join(base_path, "raw")
 
     # Get the list of directories (people) inside the base directory
