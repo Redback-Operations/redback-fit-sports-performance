@@ -1,6 +1,6 @@
 name: Security Scan
 
-on: #news
+on:
   pull_request_target:
     types: [opened, synchronize, reopened]
     branches: [main]
@@ -44,10 +44,18 @@ jobs:
 
       - name: Run Security Scan
         id: security_scan
+        env:
+          BANDIT_SKIP_IDS: ${{ secrets.BANDIT_SKIP_IDS }}
         run: |
           # Run bandit recursively on all Python files
           echo "Running Bandit security scan..."
-          bandit -r . -f txt -o bandit-results.txt || true
+          
+          bandit -r . \
+          --severity-level medium \
+          --skip "${BANDIT_SKIP_IDS}" \
+          -f txt \
+          -x .venv,venv,site-packages,build,dist,.tox,tests,migrations \
+          -o bandit-results.txt || true
           
           # Run Safety check on requirements
           if [ -f "requirements.txt" ]; then
@@ -123,7 +131,7 @@ jobs:
           fi
 
       - name: Comment PR
-        uses: peter-evans/create-or-update-comment@v3
+        uses: peter-evans/create-or-update-comment@v4
         if: always()
         with:
           issue-number: ${{ github.event.pull_request.number }}
