@@ -9,6 +9,12 @@ This folder contains five Jupyter Notebooks and a dataset used for user segmenta
 - `ImprovedData.xlsx`  
   An anonymized dataset containing exercise information such as steps, calories burned, minutes active, and distance. All models in this suite use this dataset.
 
+- 'activity_metrics.csv'
+  An anonymized updated dataset from ImprovedData.xlsx containing exercise information such as steps, calories burned, minutes active, distance with an addition of Overall Activity Score metric column based on the 5.Overall Activity Score Creation ipynb notebook.Estimating Vo2 Max for Dashboard uses this dataset.
+
+- 'activity_metrics_with_vo2.csv'
+  An anonymized updated and expanded dataset containing exercise information such as steps, calories burned, minutes active, distance and new feature of Vo2 max added using activity_metrics.csv. Powerbi Dashboard uses this dataset being the most updated and expanded dataset.
+
 ---
 
 ## 📘 Notebooks Overview
@@ -61,3 +67,25 @@ This notebook focuses on creating an Overall Activity Score based on a combinati
 
 **Author:** Darren McCauley  
 **Date:** April 2025
+
+---
+
+### 6. Wearable Performance Insights Dashboard
+**Description:**
+This is a PowerBi Dashboard created using the activity metrics csv file data with dashboard pages including interactive individual performance insights, interactive performance leaderboard, Average performance metrics on an interactive Map, Scatterplots for comparing various performance metrics against each other using scatterplots where scatter points are the individuals, last dashboard page with distribution of distance active and minutes active among sedentary, light, moderate and very active using pie chart for each individual athlete. This was created for the purpose of integration with the reflexion pro website and includes navigation buttons for the same purpose as well.
+
+**Author:** Madhav Grover  
+**Date:** September 2025
+
+---
+
+### 7. Estimating Vo2 Max for Dashboard
+**Description:**
+This notebook uses activity_metrics.csv to estimate VO2 Max for each individual using metrics in activity_metrics.csv. It calculates a weighted activity score based on very active, fairly active, and lightly active minutes, then normalizes it. A raw VO2 estimate is computed using total distance and scaled to a realistic VO2 Max range. The estimate is further refined based on step counts for improved accuracy. The final dataset, including the refined VO2 Max values, is saved to the activity_metrics_with_vo2.csv.Note:the Vo2 max feature engineered and calculated using this file is an estimate and isn't a measured metric and thus may not be fully accurate.
+
+**Author:** Madhav Grover  
+**Date:** September 2025
+
+
+
+
